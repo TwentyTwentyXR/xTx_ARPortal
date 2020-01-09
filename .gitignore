@@ -35,13 +35,13 @@ sysinfo.txt
 *.apk
 *.unitypackage
 
-XR_Shooter/Assets/ThirdPartyArt/Devdog/
-XR_Shooter/Assets/Screenshots.meta
-XR_Shooter/Assets/PlayFabEditorExtensions/Editor/Resources/PlayFabUnitySdk.unitypackage.meta
-XR_Shooter/Assets/Photon/PhotonLibs.meta
-XR_Shooter/Assets/Photon/
-XR_Shooter/Assets/Photon.meta
-XR_Shooter/Assets/Gaia/Stamps/Villages.meta
-XR_Shooter/Assets/Gaia/Stamps/Bases.meta
-XR_Shooter/Assets/DX11_Tessellation/DX11_Tessellation_Free/Editor.meta
-XR_Shooter/Assets/DX11_Tessellation/DX11_Tessellation_Free/Examples/Models.meta
+xTx AR/Assets/ThirdPartyArt/Devdog/
+xTx AR/Assets/Screenshots.meta
+xTx AR/Assets/PlayFabEditorExtensions/Editor/Resources/PlayFabUnitySdk.unitypackage.meta
+xTx AR/Assets/Photon/PhotonLibs.meta
+xTx AR/Assets/Photon/
+xTx AR/Assets/Photon.meta
+xTx AR/Assets/Gaia/Stamps/Villages.meta
+xTx AR/Assets/Gaia/Stamps/Bases.meta
+xTx AR/Assets/DX11_Tessellation/DX11_Tessellation_Free/Editor.meta
+xTx AR/Assets/DX11_Tessellation/DX11_Tessellation_Free/Examples/Models.meta
