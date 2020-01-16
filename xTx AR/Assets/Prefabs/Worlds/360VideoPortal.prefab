@@ -465,7 +465,6 @@ MonoBehaviour:
   worldController: {fileID: 3954561341715153744}
   inOtherWorld: 0
   tagUI: 360Video_UI
-  camUI: 
   video: {fileID: 465933194000563823}
 --- !u!1 &465933194000563822
 GameObject:
