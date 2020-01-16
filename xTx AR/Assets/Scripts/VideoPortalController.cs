@@ -9,11 +9,13 @@ public class VideoPortalController : PortalController
 
     protected override void OnEnterWorld()
     {
+        base.OnEnterWorld();
         video.Play();
     }
 
     protected override void OnExitWorld()
     {
+        base.OnExitWorld();
         video.Stop();
     }
 }

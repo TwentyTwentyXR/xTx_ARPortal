@@ -5,62 +5,36 @@ using UnityEngine.EventSystems;
 using GoogleARCore;
 using TMPro;
 
+#if UNITY_EDITOR
+using Input = GoogleARCore.InstantPreviewInput;
+#endif
+
 public class ARController : MonoBehaviour
 {
-    /// <summary>
-    /// The first-person camera being used to render the passthrough camera image (i.e. AR
-    /// background).
-    /// </summary>
-    public Camera FirstPersonCamera;
+    public List<ARObject> spawnableObjects;
+    public int spawnableIndex = 0;
 
-    /// <summary>
-    /// A prefab to place when a raycast from a user touch hits a vertical plane.
-    /// </summary>
-    //public GameObject GameObjectVerticalPlanePrefab;
+    private GameObject lastSpawnedObject;
 
-    /// <summary>
-    /// A prefab to place when a raycast from a user touch hits a horizontal plane.
-    /// </summary>
-    public GameObject currentObject;
-
-    public TextMeshProUGUI currentText;
-
-    /// <summary>
-    /// The rotation in degrees need to apply to prefab when it is placed.
-    /// </summary>
     private const float k_PrefabRotation = 180.0f;
 
-    /// <summary>
-    /// True if the app is in the process of quitting due to an ARCore connection error,
-    /// otherwise false.
-    /// </summary>
     private bool m_IsQuitting = false;
 
-    /// <summary>
-    /// The Unity Awake() method.
-    /// </summary>
     public void Awake()
     {
-        // Enable ARCore to target 60fps camera capture frame rate on supported devices.
-        // Note, Application.targetFrameRate is ignored when QualitySettings.vSyncCount != 0.
         Application.targetFrameRate = 60;
+
     }
 
-    /// <summary>
-    /// The Unity Update() method.
-    /// </summary>
     public void Update()
     {
         _UpdateApplicationLifecycle();
 
-        if (!currentObject)
+        if (spawnableObjects.Count == 0 || !spawnableObjects[spawnableIndex])
         {
             return;
         }
-        else
-        {
-            currentText.text = currentObject.name;
-        }
+      
 
         // If the player has not touched the screen, we are done with this update.
         Touch touch;
@@ -85,7 +59,7 @@ public class ARController : MonoBehaviour
             // Use hit pose and camera pose to check if hittest is from the
             // back of the plane, if it is, no need to create the anchor.
             if ((hit.Trackable is DetectedPlane) &&
-                Vector3.Dot(FirstPersonCamera.transform.position - hit.Pose.position,
+                Vector3.Dot(WorldManager.s_instance.player.transform.position - hit.Pose.position,
                     hit.Pose.rotation * Vector3.up) < 0)
             {
                 Debug.Log("Hit at back of the current DetectedPlane");
@@ -104,27 +78,56 @@ public class ARController : MonoBehaviour
                     }
                     else
                     {
-                        prefab = currentObject;
+                        prefab = spawnableObjects[spawnableIndex].arGameObjectPrefab;
                     }
                 }
                 else
                 {
-                    prefab = currentObject;
+                    prefab = spawnableObjects[spawnableIndex].arGameObjectPrefab;
                 }
 
                 // Instantiate prefab at the hit pose.
-                var gameObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
 
+                //Debug.Log(spawnableObjects[spawnableIndex].transform.childCount);
+
+                if (spawnableObjects[spawnableIndex].spawnedObjects.Count < 1 || spawnableObjects[spawnableIndex].bCanSpawnMultiple)
+                {
+                    lastSpawnedObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
+
+                    spawnableObjects[spawnableIndex].spawnedObjects.Add(lastSpawnedObject);
+
+                    if (lastSpawnedObject.GetComponent<WorldController>())
+                    {
+                        WorldManager.s_instance.activePortals.Add(lastSpawnedObject.GetComponent<WorldController>());
+                    }
+                }
+                else
+                {
+                    lastSpawnedObject = spawnableObjects[spawnableIndex].spawnedObjects[0];
+
+                    var oldAnchor = lastSpawnedObject.transform.parent;
+
+                    lastSpawnedObject.transform.parent = null;
+
+                    Destroy(oldAnchor.gameObject);
+
+                    lastSpawnedObject.transform.position = hit.Pose.position;
+
+                    lastSpawnedObject.transform.rotation = hit.Pose.rotation;
+                }
+
+
+                
                 // Compensate for the hitPose rotation facing away from the raycast (i.e.
                 // camera).
-                gameObject.transform.Rotate(0, k_PrefabRotation, 0, Space.Self);
+                lastSpawnedObject.transform.Rotate(0, k_PrefabRotation, 0, Space.Self);
 
                 // Create an anchor to allow ARCore to track the hitpoint as understanding of
                 // the physical world evolves.
                 var anchor = hit.Trackable.CreateAnchor(hit.Pose);
 
                 // Make game object a child of the anchor.
-                gameObject.transform.parent = anchor.transform;
+                lastSpawnedObject.transform.parent = anchor.transform;
             }
         }
     }
@@ -172,9 +175,6 @@ public class ARController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Actually quit the application.
-    /// </summary>
     private void _DoQuit()
     {
         Application.Quit();
@@ -203,9 +203,71 @@ public class ARController : MonoBehaviour
         }
     }
 
-    public void SetGameObject(GameObject newObject)
+    public void SetGameObject(ARObject newObject)
     {
-        currentObject = newObject;
 
     }
+
+    public void SetUpARController(List<ARObject> list, int index)
+    {
+        lastSpawnedObject = null;
+
+        spawnableObjects = list;
+
+        spawnableIndex = index;
+
+        WorldManager.s_instance.uiController.UpdateUI();
+    }
+
+    public string GetCurrentObjectName()
+    {
+        if(spawnableObjects.Count > 0 && spawnableObjects[spawnableIndex])
+        {
+            return spawnableObjects[spawnableIndex].name;
+        }
+        else
+        {
+            return "";
+        }
+    }
+
+    public void ChangeToPrevObject()
+    {
+        if(spawnableIndex < 1)
+        {
+            spawnableIndex = spawnableObjects.Count - 1;
+        }
+        else
+        {
+            spawnableIndex -= 1;
+        }
+
+        WorldManager.s_instance.uiController.UpdateUI();
+    }
+
+    public void ChangeToNextObject()
+    {
+        spawnableIndex = (spawnableIndex + 1) % spawnableObjects.Count;
+
+        WorldManager.s_instance.uiController.UpdateUI();
+    }
+
+    public void ClearARObjects()
+    {
+        foreach(ARObject obj in spawnableObjects)
+        {
+            for(int i = 0; i < obj.spawnedObjects.Count; i++)
+            {
+                var oldAnchor = obj.spawnedObjects[i].transform.parent;
+
+                obj.spawnedObjects[i].transform.parent = null;
+
+                Destroy(oldAnchor.gameObject);
+
+                Destroy(obj.spawnedObjects[i]);
+            }
+            obj.spawnedObjects.Clear();
+        }
+    }
+
 }
