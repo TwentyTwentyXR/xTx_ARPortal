@@ -6,9 +6,9 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
-    public Button prevSpawnButton, nextSpawnButton;
+    public Button prevSpawnButton, nextSpawnButton, clearSpawnButton;
 
-    public TextMeshProUGUI currSpawn, currWorld;
+    public TextMeshProUGUI currSpawn, currWorld, planeState;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +26,19 @@ public class UIController : MonoBehaviour
     {
         currSpawn.text = WorldManager.s_instance.arController.GetCurrentObjectName();
         currWorld.text = WorldManager.s_instance.GetCurrentWorldName();
+
+        if(WorldManager.s_instance.arController.spawnableObjects.Count == 0)
+        {
+            prevSpawnButton.interactable = false;
+            nextSpawnButton.interactable = false;
+            clearSpawnButton.interactable = false;
+        }
+        else
+        {
+            clearSpawnButton.interactable = true;
+            prevSpawnButton.interactable = true;
+            nextSpawnButton.interactable = true;
+        }
     }
 
     public void PrevObject()
@@ -41,5 +54,18 @@ public class UIController : MonoBehaviour
     public void ClearObjects()
     {
         WorldManager.s_instance.arController.ClearARObjects();
+    }
+
+    public void SpawnPlaneSwitcher()
+    {
+        WorldManager.s_instance.PlaneGeneratorSwitch();
+        if(WorldManager.s_instance.planeGenerator.activeSelf)
+        {
+            planeState.text = "ON";
+        }
+        else
+        {
+            planeState.text = "OFF";
+        }
     }
 }

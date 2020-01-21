@@ -1,0 +1,16 @@
+# Blender MTL File: 'ModelRenderLighting.blend'
+# Material Count: 1
+
+newmtl 24_Ladybug-Body-low-0_1_16_16
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.594715 0.557157 0.725734
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd Ladybug_Albedo.dds
+map_Bump ladybug_normal.dds
+map_Ks ladybug_metallicsmoothness.dds
+map_d Ladybug_Albedo.dds

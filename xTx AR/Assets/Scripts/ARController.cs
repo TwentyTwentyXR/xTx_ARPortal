@@ -30,7 +30,7 @@ public class ARController : MonoBehaviour
     {
         _UpdateApplicationLifecycle();
 
-        if (spawnableObjects.Count == 0 || !spawnableObjects[spawnableIndex])
+        if (spawnableObjects.Count == 0 || !spawnableObjects[spawnableIndex] || !WorldManager.s_instance.planeGenerator.activeSelf)
         {
             return;
         }
@@ -227,7 +227,7 @@ public class ARController : MonoBehaviour
         }
         else
         {
-            return "";
+            return "N/A";
         }
     }
 
@@ -254,7 +254,17 @@ public class ARController : MonoBehaviour
 
     public void ClearARObjects()
     {
-        foreach(ARObject obj in spawnableObjects)
+        if (spawnableObjects == null || spawnableObjects.Count == 0)
+        {
+            return;
+        }
+
+        if (spawnableObjects[0].bIsPortal)
+        {
+            WorldManager.s_instance.activePortals.Clear();
+        }
+
+        foreach (ARObject obj in spawnableObjects)
         {
             for(int i = 0; i < obj.spawnedObjects.Count; i++)
             {
@@ -268,6 +278,7 @@ public class ARController : MonoBehaviour
             }
             obj.spawnedObjects.Clear();
         }
+
     }
 
 }

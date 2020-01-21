@@ -6,6 +6,8 @@ public class WorldController : MonoBehaviour
 {
     public string worldName;
 
+    public Material skyBoxMaterial;
+
     public Transform worldObjects;
 
     public PortalController portalController;
@@ -26,6 +28,10 @@ public class WorldController : MonoBehaviour
         }
 
         portalController.transform.gameObject.SetActive(state);
-
+        
+        if(state)
+        {
+            RenderSettings.skybox = skyBoxMaterial;
+        }
     }
 }

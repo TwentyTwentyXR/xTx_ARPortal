@@ -9,6 +9,7 @@ public class WorldManager : MonoBehaviour
 
     public Transform player;
     public ARController arController;
+    public GameObject planeGenerator;
     public UIController uiController;
     
     public List<WorldController> activePortals;
@@ -101,5 +102,10 @@ public class WorldManager : MonoBehaviour
     public void OnReturnToEarth()
     {
         arController.SetUpARController(portalPrefabs, portalIndex);
+    }
+
+    public void PlaneGeneratorSwitch()
+    {
+        planeGenerator.SetActive(!planeGenerator.activeSelf);
     }
 }

@@ -7,4 +7,5 @@ public class ARObject : MonoBehaviour
     public GameObject arGameObjectPrefab;
     public bool bCanSpawnMultiple;
     public List<GameObject> spawnedObjects;
+    public bool bIsPortal;
 }
