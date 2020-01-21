@@ -5,16 +5,17 @@ using UnityEngine.Rendering;
 
 public class PortalController : MonoBehaviour
 {
-
-    //public Material[] materials;
-
     protected Transform device;
+
+    public WorldController worldController;
 
     protected bool wasInFront;
 
     public bool inOtherWorld;
 
     protected bool hasCollided;
+
+    public string tagUI;
 
     void Start()
     {
@@ -72,7 +73,10 @@ public class PortalController : MonoBehaviour
     private void WhileCameraColliding()
     {
         if (!hasCollided)
+        {
             return;
+        }
+            
 
         bool isInFront = GetIsInFront();
 
@@ -80,17 +84,18 @@ public class PortalController : MonoBehaviour
         {
             inOtherWorld = !inOtherWorld;
             SetMaterials(inOtherWorld);
-        }
 
-        WorldManager.s_instance.PortalTriggered(inOtherWorld);
+            WorldManager.s_instance.PortalTriggered(inOtherWorld);
 
-        if(inOtherWorld)
-        {
-            OnEnterWorld();
-        }
-        else
-        {
-            OnExitWorld();
+            if (inOtherWorld)
+            {
+                OnEnterWorld();
+            }
+            else
+            {
+                OnExitWorld();
+            }
+            
         }
 
         wasInFront = isInFront;
@@ -98,10 +103,21 @@ public class PortalController : MonoBehaviour
 
     private void OnDestroy()
     {
-        SetMaterials(true);
+        SetMaterials(false);
     }
 
-    protected virtual void OnEnterWorld() {}
-    protected virtual void OnExitWorld() {}
+    protected virtual void OnEnterWorld() 
+    {
+        Debug.Log("Enter");
+        WorldManager.s_instance.currPortal = worldController;
+        WorldManager.s_instance.arController.SetUpARController(worldController.portalSpawnableObjects, 
+                                                               worldController.portalSpawnableIndex);
+    }
+    protected virtual void OnExitWorld() 
+    {
+        Debug.Log("Exit");
+        WorldManager.s_instance.currPortal = null;
+        WorldManager.s_instance.OnReturnToEarth();
+    }
 
 }

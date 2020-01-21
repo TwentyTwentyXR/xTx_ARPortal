@@ -4,10 +4,20 @@ using UnityEngine;
 
 public class WorldController : MonoBehaviour
 {
+    public string worldName;
+
     public Transform worldObjects;
 
     public PortalController portalController;
-    
+
+    public List<ARObject> portalSpawnableObjects;
+    public int portalSpawnableIndex = 0;
+
+    public void Awake()
+    {
+        SetWorldObjects(true);
+    }
+
     public void SetWorldObjects(bool state)
     {
         foreach(Transform child in worldObjects)
@@ -16,5 +26,6 @@ public class WorldController : MonoBehaviour
         }
 
         portalController.transform.gameObject.SetActive(state);
+
     }
 }
