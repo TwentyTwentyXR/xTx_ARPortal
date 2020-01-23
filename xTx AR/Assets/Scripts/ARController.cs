@@ -266,6 +266,11 @@ public class ARController : MonoBehaviour
 
         foreach (ARObject obj in spawnableObjects)
         {
+            if(obj.GetComponent<WorldController>())
+            {
+
+            }
+
             for(int i = 0; i < obj.spawnedObjects.Count; i++)
             {
                 var oldAnchor = obj.spawnedObjects[i].transform.parent;

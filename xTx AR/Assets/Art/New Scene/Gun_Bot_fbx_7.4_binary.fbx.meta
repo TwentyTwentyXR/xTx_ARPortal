@@ -15,7 +15,27 @@ ModelImporter:
   - first:
       74: -509255085849470021
     second: Rig_Gun_Bot|Walkcycle_Animation
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gun_Bot
+    second: {fileID: 2100000, guid: 6eebfef6531d6bd419d9634452ab7631, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gun_Bot_Black
+    second: {fileID: 2100000, guid: 175b37ff7121cc64a908b9675ccbc781, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gun_Bot_Grass
+    second: {fileID: 2100000, guid: e7dd71254407d2d40b511a94a092cd2d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gun_Bot_Grass_2
+    second: {fileID: 2100000, guid: a555e4fd5cb98fb44b393db81cc5d8f3, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

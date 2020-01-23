@@ -3,7 +3,57 @@ guid: 314a1361f9a795a4fbbf9dc2b3e01efe
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gazebo_Cilindro3Mat
+    second: {fileID: 2100000, guid: b13f4943e832ad244b8f749bfd8d40cf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gazebo_baseMat
+    second: {fileID: 2100000, guid: 289c595ee0ff3e34a9d745ab8382227e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gazebo_colonne_Cilindro1Mat
+    second: {fileID: 2100000, guid: 21c3d0f71c63d674d80833143e087d53, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gazebo_colonne_Cilindro2Mat
+    second: {fileID: 2100000, guid: 2f1a36e882f4a3647a86fbdf3028a69e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gazebo_colonne_Cilindro4Mat
+    second: {fileID: 2100000, guid: 4c00e90b331d8d647b7be1db7c3c6b9e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gazebo_colonne_Cilindro5Mat
+    second: {fileID: 2100000, guid: cbe56ed4395afe5498ffd78af4e845e0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gazebo_colonne_Cilindro6Mat
+    second: {fileID: 2100000, guid: 75a7ba7eb3d11b546a5c80d2d8947bb7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gazebo_colonne_Cilindro7Mat
+    second: {fileID: 2100000, guid: fa4d4bf32410e604881f4923fc86e999, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gazebo_colonne_Cilindro8Mat
+    second: {fileID: 2100000, guid: 8cde1dd954dfbfc47a01d14c23966928, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gazebo_colonne_CilindroMat
+    second: {fileID: 2100000, guid: ee5180f0981052d448fd7447432c0b00, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

@@ -22,14 +22,27 @@ public class WorldController : MonoBehaviour
 
     public void SetWorldObjects(bool state)
     {
+        Debug.Log(state);
         foreach(Transform child in worldObjects)
         {
             child.gameObject.SetActive(state);
         }
 
         portalController.transform.gameObject.SetActive(state);
-        
-        if(state)
+
+    }
+
+    public void Transition(bool inOtherWorld)
+    {
+        for (int i = 0; i < portalSpawnableObjects.Count; i++)
+        {
+            for (int ii = 0; ii < portalSpawnableObjects[i].spawnedObjects.Count; ii++)
+            {
+                portalSpawnableObjects[i].spawnedObjects[ii].SetActive(inOtherWorld);
+            }
+        }
+
+        if (inOtherWorld)
         {
             RenderSettings.skybox = skyBoxMaterial;
         }

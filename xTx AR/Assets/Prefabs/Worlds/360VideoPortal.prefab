@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 465933192742439979}
   - component: {fileID: 3954561341715153744}
   m_Layer: 0
-  m_Name: 360Video_World
+  m_Name: 360VideoPortal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -171,6 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worldName: 360Video
+  skyBoxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   worldObjects: {fileID: 1670865872083413454}
   portalController: {fileID: 706029929584654894}
   portalSpawnableObjects: []
@@ -464,7 +465,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   worldController: {fileID: 3954561341715153744}
   inOtherWorld: 0
-  tagUI: 360Video_UI
   video: {fileID: 465933194000563823}
 --- !u!1 &465933194000563822
 GameObject:

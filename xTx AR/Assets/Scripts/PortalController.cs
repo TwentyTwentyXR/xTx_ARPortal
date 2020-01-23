@@ -15,8 +15,6 @@ public class PortalController : MonoBehaviour
 
     protected bool hasCollided;
 
-    public string tagUI;
-
     void Start()
     {
         device = WorldManager.s_instance.player;
@@ -85,6 +83,7 @@ public class PortalController : MonoBehaviour
             inOtherWorld = !inOtherWorld;
             SetMaterials(inOtherWorld);
 
+            worldController.Transition(inOtherWorld);
             WorldManager.s_instance.PortalTriggered(inOtherWorld);
 
             if (inOtherWorld)
