@@ -88,10 +88,30 @@ public class PortalController : MonoBehaviour
 
             if (inOtherWorld)
             {
+                GetComponent<MeshRenderer>().material.SetInt("_myValue", 1);
+                if(worldController)
+                {
+                    MeshRenderer[] mrObj = worldController.worldObjects.GetComponentsInChildren<MeshRenderer>();
+
+                    for(int i = 0; i < mrObj.Length; i++)
+                    {
+                        mrObj[i].material.SetInt("_myValue", 1);
+                    }
+                }
                 OnEnterWorld();
             }
             else
             {
+                GetComponent<MeshRenderer>().material.SetInt("_myValue", worldController.worldValue);
+                if (worldController)
+                {
+                    MeshRenderer[] mrObj = worldController.worldObjects.GetComponentsInChildren<MeshRenderer>();
+
+                    for (int i = 0; i < mrObj.Length; i++)
+                    {
+                        mrObj[i].material.SetInt("_myValue", worldController.worldValue);
+                    }
+                }
                 OnExitWorld();
             }
             

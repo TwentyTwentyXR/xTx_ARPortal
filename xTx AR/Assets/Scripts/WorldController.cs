@@ -5,7 +5,7 @@ using UnityEngine;
 public class WorldController : MonoBehaviour
 {
     public string worldName;
-
+    public int worldValue = 1;
     public Material skyBoxMaterial;
 
     public Transform worldObjects;
@@ -15,6 +15,8 @@ public class WorldController : MonoBehaviour
     public List<ARObject> portalSpawnableObjects;
     public int portalSpawnableIndex = 0;
 
+    public GameObject tempSkybox;
+    
     public void Awake()
     {
         SetWorldObjects(true);
@@ -34,6 +36,7 @@ public class WorldController : MonoBehaviour
 
     public void Transition(bool inOtherWorld)
     {
+        
         for (int i = 0; i < portalSpawnableObjects.Count; i++)
         {
             for (int ii = 0; ii < portalSpawnableObjects[i].spawnedObjects.Count; ii++)
@@ -42,9 +45,15 @@ public class WorldController : MonoBehaviour
             }
         }
 
+        if (tempSkybox) tempSkybox.SetActive(!inOtherWorld);
+
         if (inOtherWorld)
         {
             RenderSettings.skybox = skyBoxMaterial;
+        }
+        else
+        {
+            RenderSettings.skybox = WorldManager.s_instance.generalSkybox;
         }
     }
 }

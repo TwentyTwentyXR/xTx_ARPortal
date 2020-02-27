@@ -72,6 +72,7 @@ Material:
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
+    - _myValue: 4
     m_Colors:
     - _Color: {r: 0.594715, g: 0.557157, b: 0.725734, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}

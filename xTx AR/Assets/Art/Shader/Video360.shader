@@ -3,7 +3,7 @@
     Properties
     {
         _MainTex ("Texture", 2D) = "black" {}
-
+        _myValue("WorldValue", Range(1,255)) = 1
         //[Enum(Equal,3,NotEqual,6)] _StencilTest("Stencil Test", int) = 6
     }
     SubShader
@@ -14,7 +14,7 @@
         Cull Front
 
         Stencil{
-            Ref 1
+            Ref[_myValue]
             Comp[_StencilTest]
         }
 

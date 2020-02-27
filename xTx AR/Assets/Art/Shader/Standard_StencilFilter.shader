@@ -42,6 +42,7 @@ Shader "Custom/Standard_StencilFilter"
         [Enum(UV0,0,UV1,1)] _UVSec ("UV Set for secondary textures", Float) = 0
 
         //[Enum(Equal,3,NotEqual,6)] _StencilTest("Stencil Test", int) = 6
+        _myValue("WorldValue", Range(1,255)) = 1
 
         // Blending state
         [HideInInspector] _Mode ("__mode", Float) = 0.0
@@ -60,7 +61,7 @@ Shader "Custom/Standard_StencilFilter"
         LOD 300
 
         Stencil{
-            Ref 1
+            Ref[_myValue]
             Comp[_StencilTest]
         }
 
@@ -234,7 +235,7 @@ Shader "Custom/Standard_StencilFilter"
         LOD 150
 
         Stencil{
-            Ref 1
+            Ref[_myValue]
             Comp[_StencilTest]
         }
 

@@ -21,6 +21,8 @@ public class WorldManager : MonoBehaviour
 
     public bool bInRealWorld = true;
 
+    public Material generalSkybox;
+
     private void Awake()
     {
         if (s_instance == null)

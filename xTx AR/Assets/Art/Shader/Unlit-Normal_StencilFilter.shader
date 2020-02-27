@@ -8,6 +8,7 @@
 Shader "Custom/Unlit-Normal_StencilFilter" {
 Properties {
     _MainTex ("Base (RGB)", 2D) = "white" {}
+    _myValue("WorldValue", Range(1,255)) = 1
 }
 
 SubShader {
@@ -15,7 +16,7 @@ SubShader {
     LOD 100
 
     Stencil{
-            Ref 1
+            Ref[_myValue]
             Comp[_StencilTest]
         }
 

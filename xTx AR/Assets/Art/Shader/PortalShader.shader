@@ -7,6 +7,7 @@
         _Glossiness ("Smoothness", Range(0,1)) = 0.5
         _Metallic ("Metallic", Range(0,1)) = 0.0
 
+        _myValue("WorldValue", Range(1,255)) = 1
         //[Enum(Equal,3,NotEqual,6)] _PortalStencil("Portal Stencil", int) = 6
     }
     SubShader
@@ -15,7 +16,7 @@
         LOD 200
 
         Stencil{
-            Ref 1
+            Ref[_myValue]
             Comp[_PortalStencil]
         }
 
